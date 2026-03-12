@@ -1,0 +1,211 @@
+/* --- GENEL IZGARA (GRID) YAPISI --- */
+.movies-grid {
+  display: flex;
+  flex-wrap: wrap; /* Sığmayanları alt satıra at */
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+  box-sizing: border-box; /* Taşmaları engeller */
+  justify-content: center; /* Kartları her zaman ortalar */
+}
+
+/* --- FİLM KARTI TASARIMI --- */
+.movie-card {
+  /* Genişlik ayarı: */
+  flex: 1 1 200px; /* Büyü (1), Küçül (1), Baz genişlik 200px olsun */
+  max-width: 300px; /* Kartlar çok devasa olmasın diye sınır koyuyoruz */
+  min-width: 200px; /* Çok küçülmesin */
+  
+  position: relative;
+  background-color: #222;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.5);
+}
+.movie-card:last-child {
+   flex-grow: 0; 
+}
+
+.movie-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3; /* Poster oranı bozulmasın */
+}
+
+.movie-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- KALP BUTONU VE KARARTMA --- */
+.movie-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Kalbi yukarı iter */
+  align-items: flex-end;     /* Kalbi sağa iter */
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 15px;
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+.favorite-btn {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 40px;  /* Buton genişliği */
+  height: 40px; /* Buton yüksekliği */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem; /* Kalp simgesinin boyutu */
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.favorite-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.favorite-btn.active {
+  color: #e50914; /* Kırmızı kalp */
+  border-color: #e50914;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- KART ALTINDAKİ YAZILAR --- */
+.movie-info {
+  padding: 1rem;
+  background-color: #222;
+  flex-grow: 1; /* Alt kısmın hizalı kalmasını sağlar */
+}
+
+.movie-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Çok uzun isimleri ... yapar */
+}
+
+.movie-info p {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* --- ARAMA ÇUBUĞU (SEARCH BAR) --- */
+.search-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  gap: 10px;
+  padding: 0 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 40px;
+  border: 1px solid #444;
+  background-color: #222;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #e50914;
+  background-color: #333;
+}
+
+.search-button {
+  padding: 12px 25px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.search-button:hover {
+  background-color: #b20710;
+  transform: scale(1.05);
+}
+
+/* --- FAVORİLER BOŞSA --- */
+.favorites-empty {
+  text-align: center;
+  padding: 4rem;
+  color: #888;
+}
+
+.favorites-empty h2 {
+  font-size: 2rem;
+  color: white;
+}
+/* --- NAVBAR DÜZELTME --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 1rem 2rem;
+    
+    /* EKLENENLER: */
+    width: 100%;             /* Genişliği tam ekran yap */
+    box-sizing: border-box;  /* Padding ekleyince taşmasını engelle */
+    position: sticky;        /* Sayfa kaydırılsa da üstte kalsın (opsiyonel) */
+    top: 0;
+    z-index: 100;            /* Diğer her şeyin üstünde dursun */
+}
+
+/* --- KALP KONUMUNU SABİTLEME --- */
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    
+    /* Kalbi sağ üst köşeye çivilemek için: */
+    justify-content: flex-start; /* Yukarıya yasla */
+    align-items: flex-end;       /* Sağa yasla */
+    
+    padding: 10px;               /* Kenardan biraz boşluk */
+    box-sizing: border-box;      /* Taşmayı önle */
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Kartın üzerine gelince overlay görünsün */
+.movie-card:hover .movie-overlay {
+    opacity: 1;
+}
